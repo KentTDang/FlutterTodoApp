@@ -6,7 +6,7 @@ import 'package:todo_app/widgets/todo_item.dart';
 import 'package:todo_app/model/todo.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -26,13 +26,13 @@ class _HomePageState extends State<HomePage> {
     return const Text('ToDo App');
   }
 
-  Widget _userUid() {
-    return Text(user?.email ?? 'User email');
-  }
+  // Widget _userUid() {
+  //   return Text(user?.email ?? 'User email');
+  // }
 
-  Widget _signOutButton() {
-    return ElevatedButton(onPressed: signOut, child: const Text('Sign Out'));
-  }
+  // Widget _signOutButton() {
+  //   return ElevatedButton(onPressed: signOut, child: const Text('Sign Out'));
+  // }
 
   @override
   Widget build(BuildContext context) {
