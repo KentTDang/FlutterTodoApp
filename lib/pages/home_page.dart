@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:todo_app/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/constants/colors.dart';
-
+import 'package:todo_app/widgets/todo_item.dart';
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
@@ -30,10 +30,21 @@ class HomePage extends StatelessWidget {
       backgroundColor: tdBGColor,
       appBar: _buildAppBar(),
       body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         child: Column(
           children: [
-            searchBox()
+            searchBox(),
+            Expanded(
+              child: ListView(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(top: 50, bottom: 20),
+                    child: const Text("All Todos", style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),),
+                  ),
+                  ToDoItem(),
+                ],
+              ),
+            )
           ],
         ),
       ),
