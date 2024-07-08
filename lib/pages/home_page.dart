@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:todo_app/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_app/constants/colors.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -12,7 +13,7 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _title() {
-    return const Text('Firebase Auth');
+    return const Text('ToDo App');
   }
 
   Widget _userUid() {
@@ -28,6 +29,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: _title(),
+        backgroundColor: tdBGColor,
       ),
       body: Container(
         height: double.infinity,
