@@ -27,23 +27,52 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: _title(),
-        backgroundColor: tdBGColor,
-      ),
+      backgroundColor: tdBGColor,
+      appBar: _buildAppBar(),
       body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            _userUid(),
-            _signOutButton(),
+          children: [
+            searchBox()
           ],
         ),
       ),
+    );
+  }
+
+  Widget searchBox() {
+    return Container(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20)
+            ),
+            child: const TextField(
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.all(0),
+                prefixIcon: Icon(
+                  Icons.search,
+                  color: tdBlack,
+                  size: 20,
+                ),
+                prefixIconConstraints: BoxConstraints(maxHeight: 20, minWidth: 25),
+                border: InputBorder.none,
+                hintText: 'Search',
+                hintStyle: TextStyle(color: tdGrey)
+              ),
+            ),
+          );
+  }
+
+  AppBar _buildAppBar() {
+    return AppBar(
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+        const Icon(Icons.menu,color: tdBlack,size: 30),
+        _title()
+      ],),
+      backgroundColor: tdBGColor,
     );
   }
 }
