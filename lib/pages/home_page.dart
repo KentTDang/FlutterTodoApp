@@ -42,6 +42,11 @@ class HomePage extends StatelessWidget {
                     child: const Text("All Todos", style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),),
                   ),
                   ToDoItem(),
+                  ToDoItem(),
+                  ToDoItem(),
+                  ToDoItem(),
+                  ToDoItem(),
+
                 ],
               ),
             )
