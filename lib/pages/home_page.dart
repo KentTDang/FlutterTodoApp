@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
             child: Column(
               children: [
                 Expanded(
@@ -49,12 +49,12 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
-                      // Use _messageListView within the ListView
                       StreamBuilder(
                         stream: _databaseService.getToDos(),
                         builder: (context, snapshot) {
                           List todos = snapshot.data?.docs ?? [];
-                          if (snapshot.connectionState == ConnectionState.waiting) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
                             return const Center(
                               child: CircularProgressIndicator(),
                             );
@@ -73,21 +73,52 @@ class _HomePageState extends State<HomePage> {
                             children: todos.map<Widget>((doc) {
                               ToDo todo = doc.data();
                               String todoId = doc.id;
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+                              return Container(
+                                margin: const EdgeInsets.only(bottom: 20),
                                 child: ListTile(
                                   tileColor: Colors.white,
-                                  title: Text(todo.task),
-                                  trailing: Checkbox(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20)),
+                                  leading: Checkbox(
                                     value: todo.isDone,
                                     onChanged: (value) {
-                                      ToDo updateToDo = todo.copyWith(isDone: !todo.isDone);
-                                      _databaseService.updateToDo(todoId, updateToDo);
+                                      ToDo updateToDo =
+                                          todo.copyWith(isDone: !todo.isDone);
+                                      _databaseService.updateToDo(
+                                          todoId, updateToDo);
                                     },
+                                    activeColor: tdBlue,
                                   ),
-                                  onLongPress: () {
-                                    _databaseService.deleteToDo(todoId);
-                                  },
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 5),
+                                  title: Text(
+                                    todo.task,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: tdBlack,
+                                        decoration: todo.isDone
+                                            ? TextDecoration.lineThrough
+                                            : null),
+                                  ),
+                                  trailing: Container(
+                                    padding: const EdgeInsets.all(0),
+                                    margin: const EdgeInsets.symmetric(
+                                        vertical: 12),
+                                    height: 35,
+                                    width: 35,
+                                    decoration: BoxDecoration(
+                                      color: tdRed,
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: IconButton(
+                                      color: Colors.white,
+                                      iconSize: 18,
+                                      icon: const Icon(Icons.delete),
+                                      onPressed: () {
+                                        _databaseService.deleteToDo(todoId);
+                                      },
+                                    ),
+                                  ),
                                 ),
                               );
                             }).toList(),
@@ -106,8 +137,10 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Expanded(
                   child: Container(
-                    margin: const EdgeInsets.only(bottom: 20, right: 20, left: 20),
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                    margin:
+                        const EdgeInsets.only(bottom: 20, right: 20, left: 20),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       boxShadow: const [
@@ -133,7 +166,8 @@ class _HomePageState extends State<HomePage> {
                   margin: const EdgeInsets.only(bottom: 20, right: 20),
                   child: ElevatedButton(
                     onPressed: () {
-                      ToDo todo = ToDo(task: _todoController.text, isDone: false);
+                      ToDo todo =
+                          ToDo(task: _todoController.text, isDone: false);
                       _databaseService.addToDo(todo);
                       _todoController.clear();
                     },
