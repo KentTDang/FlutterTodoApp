@@ -20,7 +20,7 @@ class RegisterPage extends StatelessWidget {
           child: const Padding(
             padding: EdgeInsets.only(top: 60.0, left: 22),
             child: Text(
-              'Create Your\nAccount',
+              'Create\nYour Account!',
               style: TextStyle(
                   fontSize: 30,
                   color: Colors.white,
