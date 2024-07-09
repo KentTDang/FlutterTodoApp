@@ -21,10 +21,6 @@ class _HomePageState extends State<HomePage> {
     await Auth().signOut();
   }
 
-  Widget _title() {
-    return const Text('ToDo App');
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
