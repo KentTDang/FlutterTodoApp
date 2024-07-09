@@ -25,7 +25,7 @@ class ToDoItem extends StatelessWidget {
             ),
             contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
             title: Text(
-              todo.todoText!,
+              todo.task!,
               style: TextStyle(
                   fontSize: 16,
                   color: tdBlack,
@@ -45,7 +45,7 @@ class ToDoItem extends StatelessWidget {
                 iconSize: 18,
                 icon: const Icon(Icons.delete),
                 onPressed: () {
-                  onDeleteItem(todo.id);
+                  onDeleteItem(todo.task);
                 },
               ),
             ),
