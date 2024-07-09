@@ -194,15 +194,23 @@ class _HomePageState extends State<HomePage> {
   }
 
   AppBar _buildAppBar() {
-    return AppBar(
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(Icons.menu, color: tdBlack, size: 30),
-          _title(),
-        ],
-      ),
-      backgroundColor: tdBGColor,
-    );
-  }
+  return AppBar(
+    title: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(user!.email ?? ''),
+        // Image(image: user!.photoURL ?? )
+        IconButton(
+          icon: const Icon(Icons.exit_to_app),
+          color: tdRed,
+          onPressed: () {
+            signOut();
+          },
+        ),
+      ],
+    ),
+    backgroundColor: tdBGColor,
+  );
+}
+
 }
