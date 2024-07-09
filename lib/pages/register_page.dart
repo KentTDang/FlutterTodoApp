@@ -109,7 +109,7 @@ class RegisterPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         const Text(
-                          "Don't have account?",
+                          "Have an account?",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, color: Colors.grey),
                         ),
