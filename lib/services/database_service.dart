@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:todo_app/model/todo.dart';
-import 'package:todo_app/auth.dart';
+import 'package:todo_app/services/auth_service.dart';
 
 class DatabaseService {
   final _firestore = FirebaseFirestore.instance;

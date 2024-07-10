@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:todo_app/auth.dart';
+import 'package:todo_app/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/constants/colors.dart';
 import 'package:todo_app/services/database_service.dart';
