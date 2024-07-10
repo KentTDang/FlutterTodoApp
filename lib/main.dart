@@ -1,10 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
-// import 'package:todo_app/pages/home/home_page.dart';
-import 'package:todo_app/widget_tree.dart';
-// import 'package:todo_app/widget_tree.dart';
+import 'package:todo_app/route/home_route.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
-// import 'package:todo_app/pages/home/welcome_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,16 +14,10 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
-        useMaterial3: true,
-      ),
-      home: const WidgetTree(),
+    return const MaterialApp(
+      home: HomeRoute(),
     );
   }
 }

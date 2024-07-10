@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../../auth.dart';
+import 'package:todo_app/constants/colors.dart';
+import '../../services/auth_service.dart';
 
 class RegisterPage extends StatefulWidget {
   final VoidCallback onToggle;
@@ -24,6 +25,7 @@ class _RegisterPageState extends State<RegisterPage> {
       );
       _controllerEmail.clear();
       _controllerPassword.clear();
+
     } on FirebaseAuthException catch (e) {
       setState(() {
         errorMessage = e.message;
@@ -44,10 +46,7 @@ class _RegisterPageState extends State<RegisterPage> {
             height: double.infinity,
             width: double.infinity,
             decoration: const BoxDecoration(
-              gradient: LinearGradient(colors: [
-                Color(0xffB81736),
-                Color(0xff281537),
-              ]),
+              gradient: gdBlue,
             ),
             child: const Padding(
               padding: EdgeInsets.only(top: 60.0, left: 22),
@@ -76,17 +75,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const TextField(
-                      decoration: InputDecoration(
-                        label: Text(
-                          'Display Name',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xffB81736),
-                          ),
-                        ),
-                      ),
-                    ),
                     TextField(
                       controller: _controllerEmail,
                       decoration: const InputDecoration(
@@ -94,7 +82,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           'Email',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Color(0xffB81736),
+                            color:tdBlack,
                           ),
                         ),
                       ),
@@ -106,13 +94,12 @@ class _RegisterPageState extends State<RegisterPage> {
                           'Password',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Color(0xffB81736),
+                            color:tdBlack,
                           ),
                         ),
                       ),
-                      obscureText: true,
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
                     if (errorMessage != null && errorMessage!.isNotEmpty)
                       Text(errorMessage!, style: const TextStyle(color: Colors.red)),
                     const SizedBox(height: 70),
@@ -123,10 +110,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         width: 300,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          gradient: const LinearGradient(colors: [
-                            Color(0xffB81736),
-                            Color(0xff281537),
-                          ]),
+                          gradient: gdBlue,
                         ),
                         child: const Center(
                           child: Text(
@@ -140,7 +124,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 80),
+                    const SizedBox(height: 150),
                     Align(
                       alignment: Alignment.bottomRight,
                       child: Column(

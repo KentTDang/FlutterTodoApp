@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../../auth.dart';
+import 'package:todo_app/constants/colors.dart';
+import '../../services/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   final VoidCallback onToggle;
@@ -44,10 +45,7 @@ class _LoginPageState extends State<LoginPage> {
             height: double.infinity,
             width: double.infinity,
             decoration: const BoxDecoration(
-              gradient: LinearGradient(colors: [
-                Color(0xffB81736),
-                Color(0xff281537),
-              ]),
+              gradient: gdBlue,
             ),
             child: const Padding(
               padding: EdgeInsets.only(top: 60.0, left: 22),
@@ -82,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                           'Email',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Color(0xffB81736),
+                            color: tdBlack,
                           ),
                         ),
                       ),
@@ -94,11 +92,10 @@ class _LoginPageState extends State<LoginPage> {
                           'Password',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Color(0xffB81736),
+                            color: tdBlack,
                           ),
                         ),
                       ),
-                      obscureText: true,
                     ),
                     const SizedBox(height: 20),
                     if (errorMessage != null && errorMessage!.isNotEmpty)
@@ -111,10 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                         width: 300,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          gradient: const LinearGradient(colors: [
-                            Color(0xffB81736),
-                            Color(0xff281537),
-                          ]),
+                          gradient: gdBlue,
                         ),
                         child: const Center(
                           child: Text(

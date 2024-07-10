@@ -1,9 +1,11 @@
+import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:todo_app/auth.dart';
+import 'package:todo_app/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/constants/colors.dart';
 import 'package:todo_app/services/database_service.dart';
 import 'package:todo_app/model/todo.dart';
+import 'package:confetti/confetti.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,6 +18,20 @@ class _HomePageState extends State<HomePage> {
   final User? user = Auth().currentUser;
   final DatabaseService _databaseService = DatabaseService();
   final TextEditingController _todoController = TextEditingController();
+  late ConfettiController _confettiController;
+
+  @override
+  void initState() {
+    super.initState();
+    _confettiController =
+        ConfettiController(duration: const Duration(milliseconds: 100));
+  }
+
+  @override
+  void dispose() {
+    _confettiController.dispose();
+    super.dispose();
+  }
 
   Future<void> signOut() async {
     await Auth().signOut();
@@ -38,7 +54,7 @@ class _HomePageState extends State<HomePage> {
                       Container(
                         margin: const EdgeInsets.only(top: 50, bottom: 20),
                         child: const Text(
-                          "All Todos",
+                          "All Tasks",
                           style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.w500,
@@ -57,12 +73,12 @@ class _HomePageState extends State<HomePage> {
                           }
                           if (snapshot.hasError) {
                             return const Center(
-                              child: Text('Error fetching ToDos'),
+                              child: Text('Error fetching Tasks'),
                             );
                           }
                           if (!snapshot.hasData || todos.isEmpty) {
                             return const Center(
-                              child: Text('Add a ToDo!'),
+                              child: Text('Add a Task!'),
                             );
                           }
                           return Column(
@@ -82,6 +98,9 @@ class _HomePageState extends State<HomePage> {
                                           todo.copyWith(isDone: !todo.isDone);
                                       _databaseService.updateToDo(
                                           todoId, updateToDo);
+                                      if (!todo.isDone == true) {
+                                        _confettiController.play();
+                                      }
                                     },
                                     activeColor: tdBlue,
                                   ),
@@ -134,7 +153,7 @@ class _HomePageState extends State<HomePage> {
                 Expanded(
                   child: Container(
                     margin:
-                        const EdgeInsets.only(bottom: 20, right: 20, left: 20),
+                        const EdgeInsets.only(bottom: 40, right: 20, left: 20),
                     padding:
                         const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                     decoration: BoxDecoration(
@@ -152,14 +171,14 @@ class _HomePageState extends State<HomePage> {
                     child: TextField(
                       controller: _todoController,
                       decoration: const InputDecoration(
-                        hintText: 'Add a new todo item',
+                        hintText: 'Add a new task',
                         border: InputBorder.none,
                       ),
                     ),
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(bottom: 20, right: 20),
+                  margin: const EdgeInsets.only(bottom: 40, right: 20),
                   child: ElevatedButton(
                     onPressed: () {
                       ToDo todo =
@@ -184,29 +203,37 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: 
+              ConfettiWidget(
+                confettiController: _confettiController,
+                shouldLoop: false,
+                blastDirection: pi / 2,
+                emissionFrequency: 0.1,
+              ),
+          ),
         ],
       ),
     );
   }
 
   AppBar _buildAppBar() {
-  return AppBar(
-    title: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(user!.email ?? ''),
-        // Image(image: user!.photoURL ?? )
-        IconButton(
-          icon: const Icon(Icons.exit_to_app),
-          color: tdRed,
-          onPressed: () {
-            signOut();
-          },
-        ),
-      ],
-    ),
-    backgroundColor: tdBGColor,
-  );
-}
-
+    return AppBar(
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text('Welcome back!'),
+          IconButton(
+            icon: const Icon(Icons.exit_to_app),
+            color: tdRed,
+            onPressed: () {
+              signOut();
+            },
+          ),
+        ],
+      ),
+      backgroundColor: tdBGColor,
+    );
+  }
 }
