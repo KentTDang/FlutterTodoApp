@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/constants/colors.dart';
 import 'package:todo_app/services/database_service.dart';
 import 'package:todo_app/model/todo.dart';
+import 'package:confetti/confetti.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,6 +17,20 @@ class _HomePageState extends State<HomePage> {
   final User? user = Auth().currentUser;
   final DatabaseService _databaseService = DatabaseService();
   final TextEditingController _todoController = TextEditingController();
+  late ConfettiController _centerController;
+
+  @override
+  void initState() {
+    super.initState();
+    _centerController =
+        ConfettiController(duration: const Duration(milliseconds: 100));
+  }
+
+  @override
+  void dispose() {
+    _centerController.dispose();
+    super.dispose();
+  }
 
   Future<void> signOut() async {
     await Auth().signOut();
@@ -82,6 +97,9 @@ class _HomePageState extends State<HomePage> {
                                           todo.copyWith(isDone: !todo.isDone);
                                       _databaseService.updateToDo(
                                           todoId, updateToDo);
+                                      if (!todo.isDone == true) {
+                                        _centerController.play();
+                                      }
                                     },
                                     activeColor: tdBlue,
                                   ),
@@ -184,29 +202,38 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: 
+              ConfettiWidget(
+                confettiController: _centerController,
+                shouldLoop: false,
+                emissionFrequency: 0.1,
+              ),
+            
+          ),
         ],
       ),
     );
   }
 
   AppBar _buildAppBar() {
-  return AppBar(
-    title: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(user!.email ?? ''),
-        // Image(image: user!.photoURL ?? )
-        IconButton(
-          icon: const Icon(Icons.exit_to_app),
-          color: tdRed,
-          onPressed: () {
-            signOut();
-          },
-        ),
-      ],
-    ),
-    backgroundColor: tdBGColor,
-  );
-}
-
+    return AppBar(
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(user!.email ?? ''),
+          // Image(image: user!.photoURL ?? )
+          IconButton(
+            icon: const Icon(Icons.exit_to_app),
+            color: tdRed,
+            onPressed: () {
+              signOut();
+            },
+          ),
+        ],
+      ),
+      backgroundColor: tdBGColor,
+    );
+  }
 }
