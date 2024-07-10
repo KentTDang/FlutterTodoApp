@@ -26,7 +26,7 @@ class DatabaseService {
   }
 
   Future<void> deleteToDo(String todoId) async {
-    await _todosRef.doc(todoId).delete();
+    await _todosRef.doc(todoId).delete(); 
   }
 
   Future<void> updateToDo(String todoId, ToDo todo) async {

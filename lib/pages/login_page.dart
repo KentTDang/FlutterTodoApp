@@ -1,8 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '../auth.dart';
 import 'register_page.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final TextEditingController _controllerEmail = TextEditingController();
+  final TextEditingController _controllerPassword = TextEditingController();
+  String? errorMessage = '';
+
+  Future<void> signInWithEmailAndPassword() async {
+    try {
+
+      await Auth().signInWithEmailAndPassword(  
+          email: _controllerEmail.text, password: _controllerPassword.text);
+          _controllerEmail.clear();
+          _controllerPassword.clear();
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        errorMessage = e.message;
+      });
+    }
+  }
+
+  Widget _errorMessage() {
+    return Text(errorMessage == '' ? '' : 'Hmm ? $errorMessage');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,72 +68,95 @@ class LoginPage extends StatelessWidget {
             ),
             height: double.infinity,
             width: double.infinity,
-            child:  Padding(
-              padding: const EdgeInsets.only(left: 18.0,right: 18),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 18.0, right: 18),
               child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const TextField(
-                    decoration: InputDecoration(
-                      label: Text('Email',style: TextStyle(
+                   TextField(
+                    controller: _controllerEmail,
+                    decoration: const InputDecoration(
+                        label: Text(
+                      'Email',
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color:Color(0xffB81736),
-                      ),)
-                    ),
+                        color: Color(0xffB81736),
+                      ),
+                    )),
                   ),
-                  const TextField(
-                    decoration: InputDecoration(
-                        label: Text('Password',style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color:Color(0xffB81736),
-                        ),)
-                    ),
+                   TextField(
+                    controller: _controllerPassword,
+                    decoration: const InputDecoration(
+                        label: Text(
+                      'Password',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xffB81736),
+                      ),
+                    )),
                   ),
-                  const SizedBox(height: 20,),
-                  const SizedBox(height: 70,),
-                  Container(
-                    height: 55,
-                    width: 300,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      gradient: const LinearGradient(
-                        colors: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const SizedBox(
+                    height: 70,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+        print("trying to sigh in");
+
+                      signInWithEmailAndPassword();
+                    },
+                    child: Container(
+                      height: 55,
+                      width: 300,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        gradient: const LinearGradient(colors: [
                           Color(0xffB81736),
                           Color(0xff281537),
-                        ]
+                        ]),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'SIGN IN',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.white),
+                        ),
                       ),
                     ),
-                    child: const Center(child: Text('SIGN IN',style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.white
-                    ),),),
                   ),
-                  const SizedBox(height: 150,),
+                  const SizedBox(
+                    height: 150,
+                  ),
                   Align(
                     alignment: Alignment.bottomRight,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        const Text("Don't have account?",style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey
-                        ),),
+                        const Text(
+                          "Don't have account?",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.grey),
+                        ),
                         GestureDetector(
                           onTap: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const RegisterPage()));
+                                    builder: (context) =>
+                                        const RegisterPage()));
                           },
                           child: const Text(
-                          "Sign up",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17,
-                              color: Colors.black),
-                        ),
+                            "Sign up",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17,
+                                color: Colors.black),
+                          ),
                         ),
                       ],
                     ),
