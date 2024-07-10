@@ -96,7 +96,6 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
-                      obscureText: true,
                     ),
                     const SizedBox(height: 20),
                     if (errorMessage != null && errorMessage!.isNotEmpty)
