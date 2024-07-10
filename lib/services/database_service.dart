@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:todo_app/model/todo.dart';
-// import 'package:todo_app/auth.dart';
-
-const String TODO_COLLECTION_REF = "todos";
+import 'package:todo_app/auth.dart';
 
 class DatabaseService {
   final _firestore = FirebaseFirestore.instance;
@@ -10,11 +8,15 @@ class DatabaseService {
   late final CollectionReference<ToDo> _todosRef;
 
   DatabaseService() {
-    _todosRef = _firestore.collection(TODO_COLLECTION_REF).withConverter<ToDo>(
-        fromFirestore: (snapshots, _) => ToDo.fromJson(
-              snapshots.data()!,
-            ),
-        toFirestore: (todo, _) => todo.toJson());
+    String? uid = Auth().currentUser?.uid;
+    if (uid != null) {
+      _todosRef = _firestore.collection('users').doc(uid).collection('todos').withConverter<ToDo>(
+        fromFirestore: (snapshots, _) => ToDo.fromJson(snapshots.data()!),
+        toFirestore: (todo, _) => todo.toJson(),
+      );
+    } else {
+      throw Exception("User is not authenticated");
+    }
   }
 
   Stream<QuerySnapshot> getToDos() {
