@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:todo_app/auth.dart';
 import 'package:flutter/material.dart';
@@ -224,8 +223,7 @@ class _HomePageState extends State<HomePage> {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(user!.email ?? ''),
-          // Image(image: user!.photoURL ?? )
+          const Text('Welcome back!'),
           IconButton(
             icon: const Icon(Icons.exit_to_app),
             color: tdRed,
