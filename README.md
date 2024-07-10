@@ -1,6 +1,6 @@
 # FlutterTodoApp
-- [ ] Check Animation
-- [ ] Recolor
+- [x] Check Animation
+- [x] Recolor
 - [ ] Display Name
 - [ ] Clean Code Up
 - [ ] Documentation

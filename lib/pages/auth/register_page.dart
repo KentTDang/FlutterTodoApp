@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:todo_app/constants/colors.dart';
 import '../../auth.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -44,10 +45,7 @@ class _RegisterPageState extends State<RegisterPage> {
             height: double.infinity,
             width: double.infinity,
             decoration: const BoxDecoration(
-              gradient: LinearGradient(colors: [
-                Color(0xffB81736),
-                Color(0xff281537),
-              ]),
+              gradient: gdBlue,
             ),
             child: const Padding(
               padding: EdgeInsets.only(top: 60.0, left: 22),
@@ -82,7 +80,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           'Display Name',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Color(0xffB81736),
+                            color: tdBlack,
                           ),
                         ),
                       ),
@@ -94,7 +92,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           'Email',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Color(0xffB81736),
+                            color:tdBlack,
                           ),
                         ),
                       ),
@@ -106,7 +104,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           'Password',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Color(0xffB81736),
+                            color:tdBlack,
                           ),
                         ),
                       ),
@@ -123,10 +121,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         width: 300,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          gradient: const LinearGradient(colors: [
-                            Color(0xffB81736),
-                            Color(0xff281537),
-                          ]),
+                          gradient: gdBlue,
                         ),
                         child: const Center(
                           child: Text(
