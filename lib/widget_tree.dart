@@ -1,8 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:todo_app/auth.dart';
-import 'package:todo_app/pages/home_page.dart';
-import 'package:todo_app/pages/login_register_page.dart';
+import 'package:todo_app/pages/auth/auth_page.dart';
+import 'package:todo_app/pages/home/home_page.dart';
+// import 'package:todo_app/pages/login_register_page.dart';
+// import 'package:todo_app/pages/auth/login_page.dart';
 import 'package:flutter/material.dart';
+// import 'package:todo_app/pages/home/welcome_page.dart';
+// import 'package:todo_app/pages/welcome_page.dart';
 
 class WidgetTree extends StatefulWidget {
   const WidgetTree({super.key});
@@ -18,7 +22,7 @@ class _WidgetTreeState extends State<WidgetTree> {
       if(snapshot.hasData) {
         return const HomePage();
       } else {
-        return const LoginPage();
+        return const AuthPage();
       }
     },
     );
