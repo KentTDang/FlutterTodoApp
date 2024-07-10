@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                       Container(
                         margin: const EdgeInsets.only(top: 50, bottom: 20),
                         child: const Text(
-                          "All Todos",
+                          "All Tasks",
                           style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.w500,
@@ -74,12 +74,12 @@ class _HomePageState extends State<HomePage> {
                           }
                           if (snapshot.hasError) {
                             return const Center(
-                              child: Text('Error fetching ToDos'),
+                              child: Text('Error fetching Tasks'),
                             );
                           }
                           if (!snapshot.hasData || todos.isEmpty) {
                             return const Center(
-                              child: Text('Add a ToDo!'),
+                              child: Text('Add a Task!'),
                             );
                           }
                           return Column(
@@ -154,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                 Expanded(
                   child: Container(
                     margin:
-                        const EdgeInsets.only(bottom: 20, right: 20, left: 20),
+                        const EdgeInsets.only(bottom: 40, right: 20, left: 20),
                     padding:
                         const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                     decoration: BoxDecoration(
@@ -172,14 +172,14 @@ class _HomePageState extends State<HomePage> {
                     child: TextField(
                       controller: _todoController,
                       decoration: const InputDecoration(
-                        hintText: 'Add a new todo item',
+                        hintText: 'Add a new task',
                         border: InputBorder.none,
                       ),
                     ),
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(bottom: 20, right: 20),
+                  margin: const EdgeInsets.only(bottom: 40, right: 20),
                   child: ElevatedButton(
                     onPressed: () {
                       ToDo todo =

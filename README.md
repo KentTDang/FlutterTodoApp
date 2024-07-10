@@ -4,5 +4,5 @@
 - [ ] Display Name
 - [ ] Clean Code Up
 - [ ] Documentation
-- [ ] Fix Home Text - todo and toDo
-- [ ] Home Page padding at the bottom
+- [x] Fix Home Text - todo and toDo
+- [x] Home Page padding at the bottom
