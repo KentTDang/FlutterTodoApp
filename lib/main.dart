@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 // import 'package:todo_app/pages/home/home_page.dart';
-import 'package:todo_app/widget_tree.dart';
+import 'package:todo_app/route/home_route.dart';
 // import 'package:todo_app/widget_tree.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
         useMaterial3: true,
       ),
-      home: const WidgetTree(),
+      home: const HomeRoute(),
     );
   }
 }
