@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:todo_app/auth.dart';
 import 'package:flutter/material.dart';
@@ -17,18 +19,18 @@ class _HomePageState extends State<HomePage> {
   final User? user = Auth().currentUser;
   final DatabaseService _databaseService = DatabaseService();
   final TextEditingController _todoController = TextEditingController();
-  late ConfettiController _centerController;
+  late ConfettiController _confettiController;
 
   @override
   void initState() {
     super.initState();
-    _centerController =
+    _confettiController =
         ConfettiController(duration: const Duration(milliseconds: 100));
   }
 
   @override
   void dispose() {
-    _centerController.dispose();
+    _confettiController.dispose();
     super.dispose();
   }
 
@@ -98,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                                       _databaseService.updateToDo(
                                           todoId, updateToDo);
                                       if (!todo.isDone == true) {
-                                        _centerController.play();
+                                        _confettiController.play();
                                       }
                                     },
                                     activeColor: tdBlue,
@@ -206,11 +208,11 @@ class _HomePageState extends State<HomePage> {
             alignment: Alignment.topCenter,
             child: 
               ConfettiWidget(
-                confettiController: _centerController,
+                confettiController: _confettiController,
                 shouldLoop: false,
+                blastDirection: pi / 2,
                 emissionFrequency: 0.1,
               ),
-            
           ),
         ],
       ),
